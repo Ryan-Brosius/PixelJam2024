@@ -1,15 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://cq0821wu2tf2b"]
+[gd_scene load_steps=11 format=3 uid="uid://cq0821wu2tf2b"]
 
 [ext_resource type="PackedScene" uid="uid://bito7kn6cniod" path="res://Nodes/player.tscn" id="1_ccc8c"]
 [ext_resource type="TileSet" uid="uid://dy5wdm1x1ir8q" path="res://Sprites/map.tres" id="1_qn4te"]
-[ext_resource type="Script" path="res://Scenes/AutoGenTerrain.gd" id="2_bkje0"]
+[ext_resource type="Script" path="res://Scripts/AutoGenTerrain.gd" id="2_bkje0"]
 [ext_resource type="Script" path="res://Scenes/health.gd" id="4_l7bwt"]
 [ext_resource type="Script" path="res://Scenes/Enemy.gd" id="4_ljim3"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_r7cnw"]
+[ext_resource type="Script" path="res://Scripts/EnemySpawner.gd" id="4_m7rjh"]
+[ext_resource type="Texture2D" uid="uid://cld1jtblyw1wn" path="res://Sprites/test.png" id="5_ooca0"]
+[ext_resource type="Script" path="res://Scripts/Enemy Scripts/HealthComponent.gd" id="6_ncfn0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ggucv"]
-size = Vector2(16, 12)
+size = Vector2(16, 16)
+
+[sub_resource type="Curve2D" id="Curve2D_gofj2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -330.005, -217.016, 0, 0, 0, 0, 315.014, -218.984, 0, 0, 0, 0, 318, 211, 0, 0, 0, 0, -331, 214, 0, 0, 0, 0, -331.995, -215.048)
+}
+point_count = 5
 
 [node name="Scene" type="Node2D"]
 
@@ -33,12 +40,31 @@ position = Vector2(43, 0)
 script = ExtResource("4_ljim3")
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy"]
-position = Vector2(-3, 2)
-scale = Vector2(16.125, 12.8555)
-texture = SubResource("PlaceholderTexture2D_r7cnw")
+texture = ExtResource("5_ooca0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-position = Vector2(-3, 2)
 shape = SubResource("RectangleShape2D_ggucv")
+
+[node name="EnemySpawner" type="Node2D" parent="."]
+script = ExtResource("4_m7rjh")
+
+[node name="Path2D" type="Path2D" parent="EnemySpawner"]
+position = Vector2(-1.46994, -3.46761)
+scale = Vector2(1.00462, 1.0162)
+curve = SubResource("Curve2D_gofj2")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="EnemySpawner/Path2D"]
+position = Vector2(-330.005, -217.016)
+rotation = -0.00305104
+
+[node name="TestMob" type="CharacterBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="TestMob"]
+position = Vector2(119, 0)
+texture = ExtResource("5_ooca0")
+
+[node name="HealthComponent" type="Node2D" parent="TestMob"]
+position = Vector2(130, 37)
+script = ExtResource("6_ncfn0")
 
 [connection signal="body_entered" from="Enemy" to="Enemy" method="_on_body_entered"]

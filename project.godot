@@ -15,6 +15,10 @@ run/main_scene="res://Scenes/main_scene.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Player="*res://Scripts/Player Scripts/player.gd"
+
 [importer_defaults]
 
 texture={

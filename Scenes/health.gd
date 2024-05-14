@@ -2,6 +2,6 @@ extends Label
 
 
 func _process(delta):
-	self.text = str("HP: ") + str(Player.health)
-	
+	#self.text = str("HP: ") + str(Player.health)
+	pass
 		

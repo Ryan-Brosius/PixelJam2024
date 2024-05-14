@@ -4,7 +4,7 @@ extends AnimatedSprite2D
 
 var prev_input
 
-func _physics_process(delta):
+func _process(delta):
 	
 	set_input()
 	if player.velocity != Vector2.ZERO:
