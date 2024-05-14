@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq0821wu2tf2b"]
+[gd_scene load_steps=8 format=3 uid="uid://cq0821wu2tf2b"]
 
 [ext_resource type="PackedScene" uid="uid://bito7kn6cniod" path="res://Nodes/player.tscn" id="1_ccc8c"]
 [ext_resource type="TileSet" uid="uid://dy5wdm1x1ir8q" path="res://Sprites/map.tres" id="1_qn4te"]
 [ext_resource type="Script" path="res://Scenes/AutoGenTerrain.gd" id="2_bkje0"]
+[ext_resource type="Script" path="res://Scenes/health.gd" id="4_l7bwt"]
+[ext_resource type="Script" path="res://Scenes/Enemy.gd" id="4_ljim3"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_r7cnw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ggucv"]
+size = Vector2(16, 12)
 
 [node name="Scene" type="Node2D"]
 
@@ -11,4 +18,27 @@ tile_set = ExtResource("1_qn4te")
 format = 2
 script = ExtResource("2_bkje0")
 
-[node name="Player" parent="." instance=ExtResource("1_ccc8c")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_ccc8c")]
+
+[node name="health" type="Label" parent="Player" groups=["Player"]]
+offset_left = -231.0
+offset_top = -129.0
+offset_right = -214.0
+offset_bottom = -60.0
+theme_override_font_sizes/font_size = 25
+script = ExtResource("4_l7bwt")
+
+[node name="Enemy" type="Area2D" parent="."]
+position = Vector2(43, 0)
+script = ExtResource("4_ljim3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
+position = Vector2(-3, 2)
+scale = Vector2(16.125, 12.8555)
+texture = SubResource("PlaceholderTexture2D_r7cnw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+position = Vector2(-3, 2)
+shape = SubResource("RectangleShape2D_ggucv")
+
+[connection signal="body_entered" from="Enemy" to="Enemy" method="_on_body_entered"]

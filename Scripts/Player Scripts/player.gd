@@ -9,6 +9,8 @@ const friction = 800;
 
 var input = Vector2.ZERO;
 
+@export var health = 3 # if you need me to move this just lmk! :3
+
 func _physics_process(delta):
 	player_movement(delta)
 
@@ -30,3 +32,5 @@ func player_movement(delta):
 		velocity = velocity.limit_length(max_speed)
 		
 	move_and_slide();
+	
+	
