@@ -2,7 +2,7 @@ extends AnimatedSprite2D
 
 @onready var player = $".."
 
-var prev_input
+var prev_input = true
 
 func _process(delta):
 	
