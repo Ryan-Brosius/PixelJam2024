@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Scenes/Enemy.gd" id="4_ljim3"]
 [ext_resource type="Script" path="res://Scripts/EnemySpawner.gd" id="4_m7rjh"]
 [ext_resource type="Texture2D" uid="uid://cld1jtblyw1wn" path="res://Sprites/test.png" id="5_ooca0"]
-[ext_resource type="Script" path="res://Scripts/Enemy Scripts/HealthComponent.gd" id="6_ncfn0"]
+[ext_resource type="PackedScene" uid="uid://djhw6x73fek2n" path="res://Nodes/Enemies/crab_entity.tscn" id="8_oeu4m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ggucv"]
 size = Vector2(16, 16)
@@ -57,14 +57,7 @@ curve = SubResource("Curve2D_gofj2")
 position = Vector2(-330.005, -217.016)
 rotation = -0.00305104
 
-[node name="TestMob" type="CharacterBody2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="TestMob"]
-position = Vector2(119, 0)
-texture = ExtResource("5_ooca0")
-
-[node name="HealthComponent" type="Node2D" parent="TestMob"]
-position = Vector2(130, 37)
-script = ExtResource("6_ncfn0")
+[node name="CrabEntity" parent="." node_paths=PackedStringArray("player") instance=ExtResource("8_oeu4m")]
+player = NodePath("../Player")
 
 [connection signal="body_entered" from="Enemy" to="Enemy" method="_on_body_entered"]

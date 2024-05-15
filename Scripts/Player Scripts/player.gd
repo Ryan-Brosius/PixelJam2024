@@ -3,9 +3,9 @@ extends CharacterBody2D
 #Player movement, fish-like movement(?)
 #I would like to make it so character points towards normal vector
 
-const max_speed = 600;
-const accel = 1500;
-const friction = 800;
+const max_speed = 200;
+const accel = 800;
+const friction = 400;
 
 var input = Vector2.ZERO;
 

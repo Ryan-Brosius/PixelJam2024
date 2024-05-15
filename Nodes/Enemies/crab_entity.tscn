@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://djhw6x73fek2n"]
+
+[ext_resource type="Script" path="res://Scenes/CrabEntity.gd" id="1_8dtcd"]
+[ext_resource type="Texture2D" uid="uid://ce14ui0ahlrs0" path="res://Sprites/crab.png" id="2_uvjdv"]
+[ext_resource type="Script" path="res://Scripts/Enemy Scripts/HealthComponent.gd" id="3_2ga2w"]
+[ext_resource type="Script" path="res://Scripts/Enemy Scripts/MoveComponent.gd" id="4_jr4en"]
+[ext_resource type="Script" path="res://Scenes/PathfindComponent.gd" id="5_yspkw"]
+[ext_resource type="Script" path="res://Scenes/EnemyAnimatorComponent.gd" id="6_uderu"]
+
+[node name="CrabEntity" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "animatorComponent")]
+position = Vector2(126, -34)
+script = ExtResource("1_8dtcd")
+velocityComponent = NodePath("MoveComponent")
+pathfindComponent = NodePath("PathfindComponent")
+animatorComponent = NodePath("EnemyAnimatorComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_uvjdv")
+
+[node name="HealthComponent" type="Node2D" parent="."]
+position = Vector2(130, 37)
+script = ExtResource("3_2ga2w")
+
+[node name="MoveComponent" type="Node2D" parent="." node_paths=PackedStringArray("PathfindComponent")]
+script = ExtResource("4_jr4en")
+PathfindComponent = NodePath("../PathfindComponent")
+MaxSpeed = 100.0
+
+[node name="PathfindComponent" type="Node2D" parent="." node_paths=PackedStringArray("velocityComponent")]
+script = ExtResource("5_yspkw")
+velocityComponent = NodePath("../MoveComponent")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="PathfindComponent"]
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="PathfindComponent"]
+wait_time = 0.1
+autostart = true
+
+[node name="EnemyAnimatorComponent" type="Node2D" parent="."]
+script = ExtResource("6_uderu")
+degrees = 30.0
+time = 0.5
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="PathfindComponent/Timer" to="PathfindComponent" method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
