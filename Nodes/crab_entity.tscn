@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://c617kjh81xtq7"]
 
-[ext_resource type="Script" path="res://Scenes/CrabEntity.gd" id="1_root4"]
-[ext_resource type="Texture2D" path="res://Sprites/crab.png" id="2_mhpda"]
+[ext_resource type="Script" path="res://Nodes/Enemies/CrabEntity.gd" id="1_root4"]
+[ext_resource type="Texture2D" uid="uid://ce14ui0ahlrs0" path="res://Sprites/crab.png" id="2_mhpda"]
 [ext_resource type="Script" path="res://Scripts/Enemy Scripts/HealthComponent.gd" id="3_mjfab"]
 [ext_resource type="Script" path="res://Scripts/Enemy Scripts/MoveComponent.gd" id="4_aclnh"]
-[ext_resource type="Script" path="res://Scenes/PathfindComponent.gd" id="5_cc4gv"]
-[ext_resource type="Script" path="res://Scenes/EnemyAnimatorComponent.gd" id="6_nmla3"]
+[ext_resource type="Script" path="res://Scripts/Enemy Scripts/PathfindComponent.gd" id="5_cc4gv"]
+[ext_resource type="Script" path="res://Scripts/Enemy Scripts/EnemyAnimatorComponent.gd" id="6_nmla3"]
 
 [node name="CrabEntity" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "animatorComponent")]
 position = Vector2(126, -34)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://g56rpcgnpg7q"]
 
-[ext_resource type="Script" path="res://Scenes/settings_menu.gd" id="1_hhyx5"]
+[ext_resource type="Script" path="res://Scripts/settings_menu.gd" id="1_hhyx5"]
 [ext_resource type="Texture2D" uid="uid://c2shplmboyl71" path="res://Sprites/ocean.png" id="2_7caee"]
 
 [node name="Settings Menu" type="Control"]
