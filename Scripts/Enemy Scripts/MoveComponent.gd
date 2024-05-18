@@ -2,8 +2,6 @@ extends Node2D
 
 @onready var characterBody = $"..";
 
-@export var PathfindComponent : Node2D = null;
-
 @export var MaxSpeed : float = 250;
 @export var Accel : float = 20;
 

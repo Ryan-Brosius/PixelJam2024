@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 #Player movement, fish-like movement(?)
 #I would like to make it so character points towards normal vector
-
 const max_speed = 200;
 const accel = 800;
 const friction = 400;
@@ -17,6 +16,11 @@ func _physics_process(delta):
 func get_input():
 	input.x = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"));
 	input.y = int(Input.is_action_pressed("ui_down")) - int(Input.is_action_pressed("ui_up"));
+	
+	if (Input.is_action_pressed("shoot")):
+		shoot()
+	else:
+		$"Lazer Gun/RayCast2D".is_casting = false;
 	return input.normalized();
 	
 func player_movement(delta):
@@ -32,5 +36,6 @@ func player_movement(delta):
 		velocity = velocity.limit_length(max_speed)
 		
 	move_and_slide();
-	
-	
+
+func shoot():
+	$"Lazer Gun".shoot()

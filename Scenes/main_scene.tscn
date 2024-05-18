@@ -1,16 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cq0821wu2tf2b"]
+[gd_scene load_steps=8 format=3 uid="uid://cq0821wu2tf2b"]
 
 [ext_resource type="PackedScene" uid="uid://bito7kn6cniod" path="res://Nodes/player.tscn" id="1_ccc8c"]
 [ext_resource type="TileSet" uid="uid://dy5wdm1x1ir8q" path="res://Sprites/map.tres" id="1_qn4te"]
 [ext_resource type="Script" path="res://Scripts/AutoGenTerrain.gd" id="2_bkje0"]
 [ext_resource type="Script" path="res://Scripts/health.gd" id="4_l7bwt"]
-[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="4_ljim3"]
 [ext_resource type="Script" path="res://Scripts/EnemySpawner.gd" id="4_m7rjh"]
-[ext_resource type="Texture2D" uid="uid://cld1jtblyw1wn" path="res://Sprites/test.png" id="5_ooca0"]
-[ext_resource type="PackedScene" uid="uid://djhw6x73fek2n" path="res://Nodes/Enemies/crab_entity.tscn" id="8_oeu4m"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ggucv"]
-size = Vector2(16, 16)
+[ext_resource type="PackedScene" uid="uid://b0gl5rfa5ieuf" path="res://Nodes/Enemies/crab_entity.tscn" id="7_yh54i"]
 
 [sub_resource type="Curve2D" id="Curve2D_gofj2"]
 _data = {
@@ -25,7 +20,7 @@ tile_set = ExtResource("1_qn4te")
 format = 2
 script = ExtResource("2_bkje0")
 
-[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_ccc8c")]
+[node name="Player" parent="." instance=ExtResource("1_ccc8c")]
 
 [node name="health" type="Label" parent="Player" groups=["Player"]]
 offset_left = -231.0
@@ -34,16 +29,6 @@ offset_right = -214.0
 offset_bottom = -60.0
 theme_override_font_sizes/font_size = 25
 script = ExtResource("4_l7bwt")
-
-[node name="Enemy" type="Area2D" parent="."]
-position = Vector2(43, 0)
-script = ExtResource("4_ljim3")
-
-[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
-texture = ExtResource("5_ooca0")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
-shape = SubResource("RectangleShape2D_ggucv")
 
 [node name="EnemySpawner" type="Node2D" parent="."]
 script = ExtResource("4_m7rjh")
@@ -57,7 +42,6 @@ curve = SubResource("Curve2D_gofj2")
 position = Vector2(-330.005, -217.016)
 rotation = -0.00305104
 
-[node name="CrabEntity" parent="." node_paths=PackedStringArray("player") instance=ExtResource("8_oeu4m")]
+[node name="CrabEntity" parent="." node_paths=PackedStringArray("player") instance=ExtResource("7_yh54i")]
+position = Vector2(91, -6)
 player = NodePath("../Player")
-
-[connection signal="body_entered" from="Enemy" to="Enemy" method="_on_body_entered"]

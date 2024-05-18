@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2kigrgutcp6i"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy Scripts/HealthComponent.gd" id="1_yxrr1"]
+
+[node name="HealthComponent" type="Node2D"]
+position = Vector2(130, 37)
+script = ExtResource("1_yxrr1")

@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://vt4di3y73r56"]
+
+[ext_resource type="Shader" path="res://Shaders/pixel_shader.gdshader" id="1_p54eo"]
+
+[resource]
+shader = ExtResource("1_p54eo")
+shader_parameter/pixel_size = 2.0

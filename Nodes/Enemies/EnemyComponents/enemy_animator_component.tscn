@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://boqx57s6rsfui"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy Scripts/EnemyAnimatorComponent.gd" id="1_kgepl"]
+
+[node name="EnemyAnimatorComponent" type="Node2D"]
+script = ExtResource("1_kgepl")
+degrees = 20.0
+time = 0.6

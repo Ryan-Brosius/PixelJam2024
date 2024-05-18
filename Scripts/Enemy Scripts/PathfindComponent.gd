@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var NavAgent = $NavigationAgent2D
+@export var NavAgent : NavigationAgent2D;
 @export var velocityComponent : Node2D;
 
 var direction = Vector2.ZERO

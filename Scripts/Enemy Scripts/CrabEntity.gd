@@ -5,6 +5,8 @@ extends CharacterBody2D
 @export var animatorComponent : Node2D;
 @export var player : Node2D;
 
+var current_tick = 3
+var move_num_of_ticks = 3
 enum State {
 	Moving,
 	notMoving
@@ -29,4 +31,10 @@ func setState():
 		animatorComponent.lean_other_way()
 
 func _on_timer_timeout():
-	setState()
+	if currentState == State.notMoving:
+		setState()
+	elif current_tick == 3:
+		setState()
+		current_tick = 0
+	else:
+		current_tick += 1

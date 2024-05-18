@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cngvv4s3kwf6c"]
 
-[ext_resource type="Script" path="res://Main_Menu.gd" id="1_nfhep"]
+[ext_resource type="Script" path="res://Scripts/Main_Menu.gd" id="1_nfhep"]
 [ext_resource type="Texture2D" uid="uid://c2shplmboyl71" path="res://Sprites/ocean.png" id="2_jek11"]
 
 [sub_resource type="SystemFont" id="SystemFont_4mj4c"]

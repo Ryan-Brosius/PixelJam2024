@@ -23,4 +23,3 @@ func _ready():
 
 func damage(damage):
 	currentHealth -= damage
-	print(currentHealth)

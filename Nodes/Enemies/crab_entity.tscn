@@ -1,50 +1,49 @@
-[gd_scene load_steps=7 format=3 uid="uid://djhw6x73fek2n"]
+[gd_scene load_steps=11 format=3 uid="uid://b0gl5rfa5ieuf"]
 
-[ext_resource type="Script" path="res://Nodes/Enemies/CrabEntity.gd" id="1_8dtcd"]
-[ext_resource type="Texture2D" uid="uid://ce14ui0ahlrs0" path="res://Sprites/crab.png" id="2_uvjdv"]
-[ext_resource type="Script" path="res://Scripts/Enemy Scripts/HealthComponent.gd" id="3_2ga2w"]
-[ext_resource type="Script" path="res://Scripts/Enemy Scripts/MoveComponent.gd" id="4_jr4en"]
-[ext_resource type="Script" path="res://Scripts/Enemy Scripts/PathfindComponent.gd" id="5_yspkw"]
-[ext_resource type="Script" path="res://Scripts/Enemy Scripts/EnemyAnimatorComponent.gd" id="6_uderu"]
+[ext_resource type="Script" path="res://Scripts/Enemy Scripts/CrabEntity.gd" id="1_root4"]
+[ext_resource type="Texture2D" uid="uid://ce14ui0ahlrs0" path="res://Sprites/crab.png" id="2_mhpda"]
+[ext_resource type="PackedScene" uid="uid://b2kigrgutcp6i" path="res://Nodes/Enemies/EnemyComponents/health_component.tscn" id="3_dcfrm"]
+[ext_resource type="PackedScene" uid="uid://7i86efmxpt78" path="res://Nodes/Enemies/EnemyComponents/move_component.tscn" id="4_oxu7w"]
+[ext_resource type="PackedScene" uid="uid://boqx57s6rsfui" path="res://Nodes/Enemies/EnemyComponents/enemy_animator_component.tscn" id="6_tlidm"]
+[ext_resource type="PackedScene" uid="uid://cmmyjxawqcuh2" path="res://Nodes/Enemies/EnemyComponents/pathfind_component.tscn" id="6_uyk8o"]
+[ext_resource type="PackedScene" uid="uid://cwwg2nlqi4vv" path="res://Nodes/Enemies/EnemyComponents/hit_component.tscn" id="7_8vocl"]
+[ext_resource type="Script" path="res://Scripts/Enemy Scripts/hit_component.gd" id="8_eommh"]
+[ext_resource type="PackedScene" uid="uid://deskugvvcakbs" path="res://Particles/explosion.tscn" id="9_umfoo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xqth7"]
+size = Vector2(20, 15)
 
 [node name="CrabEntity" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "animatorComponent")]
-position = Vector2(126, -34)
-script = ExtResource("1_8dtcd")
+script = ExtResource("1_root4")
 velocityComponent = NodePath("MoveComponent")
 pathfindComponent = NodePath("PathfindComponent")
 animatorComponent = NodePath("EnemyAnimatorComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_uvjdv")
+texture = ExtResource("2_mhpda")
 
-[node name="HealthComponent" type="Node2D" parent="."]
-position = Vector2(130, 37)
-script = ExtResource("3_2ga2w")
+[node name="HealthComponent" parent="." instance=ExtResource("3_dcfrm")]
 
-[node name="MoveComponent" type="Node2D" parent="." node_paths=PackedStringArray("PathfindComponent")]
-script = ExtResource("4_jr4en")
-PathfindComponent = NodePath("../PathfindComponent")
-MaxSpeed = 100.0
+[node name="MoveComponent" parent="." instance=ExtResource("4_oxu7w")]
 
-[node name="PathfindComponent" type="Node2D" parent="." node_paths=PackedStringArray("velocityComponent")]
-script = ExtResource("5_yspkw")
+[node name="EnemyAnimatorComponent" parent="." instance=ExtResource("6_tlidm")]
+
+[node name="PathfindComponent" parent="." node_paths=PackedStringArray("velocityComponent") instance=ExtResource("6_uyk8o")]
 velocityComponent = NodePath("../MoveComponent")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="PathfindComponent"]
-debug_enabled = true
-
-[node name="Timer" type="Timer" parent="PathfindComponent"]
-wait_time = 0.1
-autostart = true
-
-[node name="EnemyAnimatorComponent" type="Node2D" parent="."]
-script = ExtResource("6_uderu")
-degrees = 30.0
-time = 0.5
-
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.2
 autostart = true
 
-[connection signal="timeout" from="PathfindComponent/Timer" to="PathfindComponent" method="_on_timer_timeout"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_xqth7")
+
+[node name="HitComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_8vocl")]
+script = ExtResource("8_eommh")
+death_animation = ExtResource("9_umfoo")
+sprite = NodePath("../Sprite2D")
+
+[connection signal="entityDied" from="HealthComponent" to="HitComponent" method="_on_health_component_entity_died"]
+[connection signal="healthChanged" from="HealthComponent" to="HitComponent" method="_on_health_component_health_changed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

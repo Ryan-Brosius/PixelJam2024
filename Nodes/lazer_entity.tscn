@@ -1,0 +1,127 @@
+[gd_scene load_steps=13 format=3 uid="uid://b6eoci8nrqw66"]
+
+[ext_resource type="Texture2D" uid="uid://csvh25g34av4i" path="res://Sprites/LazerProjectile.png" id="2_quibm"]
+
+[sub_resource type="GDScript" id="GDScript_gbw2g"]
+script/source = "extends Node2D
+
+@export var speed = 10;
+var distance_traveled = 0;
+
+func _ready():
+	$AnimationPlayer.play(\"cycle\")
+
+func _physics_process(delta):
+	position += Vector2.RIGHT.rotated(rotation) * speed * delta
+
+	distance_traveled += speed * delta
+	if distance_traveled > 1500:
+		queue_free()
+
+
+func _on_area_2d_body_entered(body):
+	if body.has_node(\"EnemyHurtboxComponent\"):
+		pass
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wubbi"]
+atlas = ExtResource("2_quibm")
+region = Rect2(0, 4, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57pcv"]
+atlas = ExtResource("2_quibm")
+region = Rect2(16, 4, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pq8wf"]
+atlas = ExtResource("2_quibm")
+region = Rect2(32, 4, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jccj5"]
+atlas = ExtResource("2_quibm")
+region = Rect2(48, 4, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jow62"]
+atlas = ExtResource("2_quibm")
+region = Rect2(64, 4, 16, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p3tm2"]
+atlas = ExtResource("2_quibm")
+region = Rect2(80, 4, 16, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6y0gs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wubbi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57pcv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pq8wf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jccj5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jow62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p3tm2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsqp3"]
+size = Vector2(14, 4)
+
+[sub_resource type="Animation" id="Animation_olivt"]
+resource_name = "cycle"
+length = 0.42
+loop_mode = 1
+step = 0.07
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.07, 0.14, 0.21, 0.28, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l1034"]
+_data = {
+"cycle": SubResource("Animation_olivt")
+}
+
+[node name="LazerEntity" type="Node2D"]
+top_level = true
+script = SubResource("GDScript_gbw2g")
+speed = 300
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6y0gs")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_vsqp3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+reset_on_save = false
+libraries = {
+"": SubResource("AnimationLibrary_l1034")
+}
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

@@ -1,0 +1,113 @@
+[gd_scene load_steps=8 format=3 uid="uid://hxq2vh7f7aw6"]
+
+[ext_resource type="Texture2D" uid="uid://co4ompx4x251w" path="res://Sprites/Lazer-Sheet.png" id="1_sgh07"]
+[ext_resource type="Script" path="res://Scripts/RayCast2D.gd" id="2_p0lk1"]
+[ext_resource type="Material" uid="uid://vt4di3y73r56" path="res://Shaders/pixel_shader.tres" id="3_368oa"]
+
+[sub_resource type="Curve" id="Curve_t6pbu"]
+_data = [Vector2(0.0125628, 0.99375), 0.0, 0.0, 0, 0, Vector2(0.291457, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_rvc38"]
+offsets = PackedFloat32Array(0, 0.427027, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_edexr"]
+min_value = -200.0
+max_value = 200.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Environment" id="Environment_bohwa"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 3.0
+glow_blend_mode = 0
+glow_hdr_luminance_cap = 2.0
+
+[node name="Lazer Gun" type="Node2D"]
+position = Vector2(5, 0)
+
+[node name="PivotPoint" type="Marker2D" parent="."]
+position = Vector2(-5, 0)
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(7, 0)
+target_position = Vector2(1000, 0)
+script = ExtResource("2_p0lk1")
+
+[node name="Line2D" type="Line2D" parent="RayCast2D"]
+points = PackedVector2Array(0, 0, 100, 0)
+default_color = Color(2, 0.2, 0.2, 1)
+
+[node name="CastingParticles" type="CPUParticles2D" parent="RayCast2D"]
+emitting = false
+amount = 3
+lifetime = 0.3
+local_coords = true
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 30.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_t6pbu")
+color = Color(2, 0.2, 0.2, 1)
+
+[node name="CollisionParticles" type="CPUParticles2D" parent="RayCast2D"]
+position = Vector2(7, 0)
+emitting = false
+amount = 12
+lifetime = 0.3
+local_coords = true
+spread = 35.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 120.0
+initial_velocity_max = 120.0
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_t6pbu")
+color = Color(2, 0.2, 0.2, 1)
+color_ramp = SubResource("Gradient_rvc38")
+
+[node name="BeamParticles" type="CPUParticles2D" parent="RayCast2D"]
+position = Vector2(24, 0)
+emitting = false
+amount = 12
+lifetime = 0.3
+emission_shape = 3
+emission_rect_extents = Vector2(1, 1)
+spread = 35.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 120.0
+initial_velocity_max = 120.0
+tangential_accel_min = 100.0
+tangential_accel_max = 100.0
+tangential_accel_curve = SubResource("Curve_edexr")
+scale_amount_min = 3.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_t6pbu")
+color = Color(2, 0.2, 0.2, 1)
+color_ramp = SubResource("Gradient_rvc38")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -0.785398
+texture = ExtResource("1_sgh07")
+hframes = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="CanvasLayer"]
+position = Vector2(12, 0)
+copy_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = ExtResource("3_368oa")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bohwa")

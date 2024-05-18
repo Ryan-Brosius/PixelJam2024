@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://deskugvvcakbs"]
+
+[ext_resource type="Texture2D" uid="uid://jwngd0y8bx6m" path="res://Sprites/explosion_texture.png" id="1_deyb0"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yrddp"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_6xklu"]
+offsets = PackedFloat32Array(0, 0.298246, 0.324561, 0.540936, 0.561404, 0.722222, 0.74269, 0.95614, 1)
+colors = PackedColorArray(0.996078, 0.905882, 0.380392, 1, 0.996078, 0.905882, 0.380392, 1, 0.968627, 0.462745, 0.133333, 1, 0.968627, 0.462745, 0.133333, 1, 0.894118, 0.231373, 0.266667, 1, 0.894118, 0.231373, 0.266667, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3gnox"]
+gradient = SubResource("Gradient_6xklu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d4w8n"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 35.0
+angle_min = -360.0
+angle_max = 360.0
+inherit_velocity_ratio = 1.0
+spread = 180.0
+gravity = Vector3(0, -20, 0)
+scale_min = 0.5
+color = Color(1.2, 1.2, 1.2, 1)
+color_ramp = SubResource("GradientTexture1D_3gnox")
+anim_speed_min = 1.0
+anim_speed_max = 2.0
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_yrddp")
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_d4w8n")
+texture = ExtResource("1_deyb0")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.5
+randomness = 0.2

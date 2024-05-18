@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://7i86efmxpt78"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy Scripts/MoveComponent.gd" id="1_v46x1"]
+
+[node name="MoveComponent" type="Node2D"]
+script = ExtResource("1_v46x1")
+MaxSpeed = 80.0
