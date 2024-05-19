@@ -1,6 +1,8 @@
 extends Node2D
 
 @export var death_animation : PackedScene
+@export var exp : PackedScene
+@export var exp_amount : float
 @export var sprite : Sprite2D
 
 func _on_health_component_entity_died():
@@ -8,6 +10,14 @@ func _on_health_component_entity_died():
 	particles.emitting = true
 	particles.position = get_parent().position
 	get_node("/root").add_child(particles)
+	
+	for i in range(exp_amount):
+		var exp_node = exp.instantiate()
+		exp_node.position = get_parent().position
+		exp_node.slide()
+		get_node("/root").add_child(exp_node)
+		
+	
 	get_parent().queue_free()
 
 

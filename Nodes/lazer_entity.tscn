@@ -1,9 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://b6eoci8nrqw66"]
-
-[ext_resource type="Texture2D" uid="uid://csvh25g34av4i" path="res://Sprites/LazerProjectile.png" id="2_quibm"]
+[gd_scene load_steps=13 format=3 uid="uid://4xtintbjuy4"]
 
 [sub_resource type="GDScript" id="GDScript_gbw2g"]
-script/source = "extends Node2D
+script/source = "xtends Node2D
 
 @export var speed = 10;
 var distance_traveled = 0;
@@ -24,28 +22,30 @@ func _on_area_2d_body_entered(body):
 		pass
 "
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vnps7"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_wubbi"]
-atlas = ExtResource("2_quibm")
+atlas = SubResource("CompressedTexture2D_vnps7")
 region = Rect2(0, 4, 16, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_57pcv"]
-atlas = ExtResource("2_quibm")
+atlas = SubResource("CompressedTexture2D_vnps7")
 region = Rect2(16, 4, 16, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pq8wf"]
-atlas = ExtResource("2_quibm")
+atlas = SubResource("CompressedTexture2D_vnps7")
 region = Rect2(32, 4, 16, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jccj5"]
-atlas = ExtResource("2_quibm")
+atlas = SubResource("CompressedTexture2D_vnps7")
 region = Rect2(48, 4, 16, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jow62"]
-atlas = ExtResource("2_quibm")
+atlas = SubResource("CompressedTexture2D_vnps7")
 region = Rect2(64, 4, 16, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p3tm2"]
-atlas = ExtResource("2_quibm")
+atlas = SubResource("CompressedTexture2D_vnps7")
 region = Rect2(80, 4, 16, 8)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6y0gs"]

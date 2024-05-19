@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bito7kn6cniod"]
+[gd_scene load_steps=14 format=3 uid="uid://bito7kn6cniod"]
 
 [ext_resource type="Script" path="res://Scripts/Player Scripts/player.gd" id="1_vjnu1"]
 [ext_resource type="Material" uid="uid://bl2b5najbjcpw" path="res://Shaders/water_shader.tres" id="2_85rw2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Player Scripts/PlayerAnimation.gd" id="3_v5gmn"]
 [ext_resource type="PackedScene" uid="uid://hxq2vh7f7aw6" path="res://Nodes/lazer_gun.tscn" id="4_jmxc5"]
 [ext_resource type="Script" path="res://Scripts/Player Scripts/lazer_gun.gd" id="6_u5xe8"]
+[ext_resource type="PackedScene" uid="uid://bab4r3ewqaint" path="res://Nodes/level_component.tscn" id="7_0xwtr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ko5px"]
 size = Vector2(18, 17)
@@ -47,6 +48,7 @@ animations = [{
 }]
 
 [node name="PlayerEntity" type="CharacterBody2D"]
+collision_mask = 0
 script = ExtResource("1_vjnu1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -74,3 +76,5 @@ script = ExtResource("3_v5gmn")
 [node name="Lazer Gun" parent="." instance=ExtResource("4_jmxc5")]
 script = ExtResource("6_u5xe8")
 max_position_away = 15
+
+[node name="LevelComponent" parent="." instance=ExtResource("7_0xwtr")]

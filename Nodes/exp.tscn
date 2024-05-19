@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://7tqoi5x1ai2l"]
+
+[ext_resource type="Script" path="res://Scripts/exp.gd" id="1_pqqkg"]
+[ext_resource type="Texture2D" uid="uid://djqr2v7j5nhuv" path="res://Sprites/pearl.png" id="2_coij4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_stroe"]
+radius = 5.0
+
+[node name="EXP" type="Node2D" groups=["EXP"]]
+scale = Vector2(0.7, 0.7)
+script = ExtResource("1_pqqkg")
+gravity = 2000.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_coij4")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(1.2, 1.2)
+shape = SubResource("CircleShape2D_stroe")

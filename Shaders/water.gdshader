@@ -16,7 +16,7 @@ void fragment() {
 
     vec3 color = texture(SCREEN_TEXTURE, wave_uv).rgb;
 
-    color = mix(color, tint.rgb, 0.1);
+    color = mix(color, tint.rgb, 0.05);
 
     COLOR = vec4(color, 1.0);
 }

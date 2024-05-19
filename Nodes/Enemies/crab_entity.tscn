@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b0gl5rfa5ieuf"]
+[gd_scene load_steps=12 format=3 uid="uid://b0gl5rfa5ieuf"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy Scripts/CrabEntity.gd" id="1_root4"]
 [ext_resource type="Texture2D" uid="uid://ce14ui0ahlrs0" path="res://Sprites/crab.png" id="2_mhpda"]
@@ -9,11 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://cwwg2nlqi4vv" path="res://Nodes/Enemies/EnemyComponents/hit_component.tscn" id="7_8vocl"]
 [ext_resource type="Script" path="res://Scripts/Enemy Scripts/hit_component.gd" id="8_eommh"]
 [ext_resource type="PackedScene" uid="uid://deskugvvcakbs" path="res://Particles/explosion.tscn" id="9_umfoo"]
+[ext_resource type="PackedScene" uid="uid://7tqoi5x1ai2l" path="res://Nodes/exp.tscn" id="10_g6t5h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xqth7"]
 size = Vector2(20, 15)
 
 [node name="CrabEntity" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "animatorComponent")]
+collision_mask = 0
 script = ExtResource("1_root4")
 velocityComponent = NodePath("MoveComponent")
 pathfindComponent = NodePath("PathfindComponent")
@@ -42,6 +44,8 @@ shape = SubResource("RectangleShape2D_xqth7")
 [node name="HitComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_8vocl")]
 script = ExtResource("8_eommh")
 death_animation = ExtResource("9_umfoo")
+exp = ExtResource("10_g6t5h")
+exp_amount = 20.0
 sprite = NodePath("../Sprite2D")
 
 [connection signal="entityDied" from="HealthComponent" to="HitComponent" method="_on_health_component_entity_died"]

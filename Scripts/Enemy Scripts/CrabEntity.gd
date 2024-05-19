@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var velocityComponent : Node2D;
 @export var pathfindComponent : Node2D;
 @export var animatorComponent : Node2D;
-@export var player : Node2D;
+@onready var player = get_node('/root/Scene/Player');
 
 var current_tick = 3
 var move_num_of_ticks = 3
