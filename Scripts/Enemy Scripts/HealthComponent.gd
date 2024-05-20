@@ -3,8 +3,9 @@ extends Node2D
 signal healthChanged
 signal entityDied
 
-@export var health: float = 20.0;
+@export var health: float
 var isDead = false
+var damageMultiplier = 1
 
 var currentHealth : float :
 	get:
@@ -19,7 +20,11 @@ var currentHealth : float :
 var maxHealth = health
 
 func _ready():
+	maxHealth = health
 	currentHealth = health
 
 func damage(damage):
-	currentHealth -= damage
+	if damage > 0:
+		currentHealth -= damage * damageMultiplier
+	else:
+		currentHealth -= damage

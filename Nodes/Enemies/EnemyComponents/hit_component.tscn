@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://cwwg2nlqi4vv"]
+[gd_scene load_steps=2 format=3 uid="uid://cbx2t1f5ncx4g"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy Scripts/hit_component.gd" id="1_kv3ah"]
 
 [node name="HitComponent" type="Node2D"]
+script = ExtResource("1_kv3ah")

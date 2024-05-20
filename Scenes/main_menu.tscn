@@ -1,12 +1,53 @@
-[gd_scene load_steps=5 format=3 uid="uid://cngvv4s3kwf6c"]
+[gd_scene load_steps=17 format=3 uid="uid://cngvv4s3kwf6c"]
 
 [ext_resource type="Script" path="res://Scripts/Main_Menu.gd" id="1_nfhep"]
-[ext_resource type="Texture2D" uid="uid://c2shplmboyl71" path="res://Sprites/ocean.png" id="2_jek11"]
+[ext_resource type="Texture2D" uid="uid://wyixuqjjojsl" path="res://Sprites/tilemap.png" id="2_peu6c"]
+[ext_resource type="TileSet" uid="uid://dy5wdm1x1ir8q" path="res://Sprites/map.tres" id="3_1wyok"]
+[ext_resource type="FontFile" uid="uid://5dtgum7nufww" path="res://Silver.ttf" id="4_1lnei"]
+[ext_resource type="Script" path="res://Scenes/EnemySpawnerMenu.gd" id="4_qfsn2"]
+[ext_resource type="Material" uid="uid://ej3rnj3xvi1p" path="res://Shaders/blur.tres" id="5_tutnc"]
+[ext_resource type="Material" uid="uid://bl2b5najbjcpw" path="res://Shaders/water_shader.tres" id="5_yt88l"]
 
-[sub_resource type="SystemFont" id="SystemFont_4mj4c"]
+[sub_resource type="Curve2D" id="Curve2D_nonq5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -221.507, -143.212, 0, 0, 0, 0, 223.438, -143.212)
+}
+point_count = 2
 
 [sub_resource type="SystemFont" id="SystemFont_xijcm"]
 font_names = PackedStringArray("Grand Aventure Text")
+
+[sub_resource type="LabelSettings" id="LabelSettings_kyfp5"]
+line_spacing = 10.0
+font = ExtResource("4_1lnei")
+font_size = 150
+font_color = Color(0, 0.6, 0.858824, 1)
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_fnkja"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vq6sr"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Theme" id="Theme_nlsjq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vixg1"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_70qbd"]
+font = ExtResource("4_1lnei")
+font_size = 150
+font_color = Color(0, 0.6, 0.858824, 1)
+outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_upb75"]
+line_spacing = -8.0
+font = ExtResource("4_1lnei")
+font_size = 28
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="Main Menu" type="Control"]
 layout_mode = 3
@@ -21,66 +62,251 @@ script = ExtResource("1_nfhep")
 layout_mode = 0
 offset_right = 1161.0
 offset_bottom = 663.0
-texture = ExtResource("2_jek11")
+texture = ExtResource("2_peu6c")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
+[node name="Node" type="Node" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Node"]
+tile_set = ExtResource("3_1wyok")
+format = 2
+layer_0/tile_data = PackedInt32Array(-327688, 0, 0, -262152, 0, 0, -196616, 0, 0, -131080, 0, 0, -65544, 0, 0, -8, 131072, 2, 65528, 0, 0, 131064, 0, 0, 196600, 0, 3, 262136, 0, 0, 327672, 0, 0, 393208, 0, 0, 458744, 0, 0, -327687, 0, 0, -262151, 0, 0, -196615, 0, 0, -131079, 0, 0, -65543, 0, 0, -7, 0, 0, 65529, 0, 0, 131065, 0, 0, 196601, 0, 0, 262137, 0, 0, 327673, 0, 0, 393209, 0, 0, 458745, 0, 0, -327686, 0, 0, -262150, 0, 0, -196614, 131072, 3, -131078, 0, 1, -65542, 0, 0, -6, 0, 0, 65530, 0, 0, 131066, 0, 0, 196602, 0, 0, 262138, 0, 0, 327674, 0, 0, 393210, 131072, 2, 458746, 0, 0, -327685, 0, 0, -262149, 0, 0, -196613, 0, 0, -131077, 0, 0, -65541, 0, 0, -5, 0, 0, 65531, 0, 0, 131067, 0, 0, 196603, 0, 0, 262139, 0, 0, 327675, 0, 0, 393211, 0, 0, 458747, 0, 0, -327684, 0, 0, -262148, 0, 0, -196612, 0, 0, -131076, 0, 0, -65540, 0, 0, -4, 0, 0, 65532, 0, 0, 131068, 0, 0, 196604, 0, 0, 262140, 0, 0, 327676, 0, 0, 393212, 0, 0, 458748, 0, 0, -327683, 0, 0, -262147, 0, 0, -196611, 0, 0, -131075, 0, 0, -65539, 0, 0, -3, 0, 0, 65533, 0, 0, 131069, 0, 0, 196605, 0, 0, 262141, 0, 0, 327677, 0, 1, 393213, 0, 0, 458749, 0, 0, -327682, 0, 0, -262146, 0, 0, -196610, 0, 0, -131074, 0, 0, -65538, 0, 0, -2, 0, 0, 65534, 0, 0, 131070, 0, 0, 196606, 0, 0, 262142, 0, 0, 327678, 0, 0, 393214, 0, 0, 458750, 0, 0, -327681, 0, 0, -262145, 0, 0, -196609, 0, 1, -131073, 0, 0, -65537, 0, 0, -1, 0, 0, 65535, 0, 0, 131071, 65536, 2, 196607, 0, 0, 262143, 0, 0, 327679, 0, 0, 393215, 0, 0, 458751, 0, 0, -393216, 0, 0, -327680, 0, 0, -262144, 0, 0, -196608, 0, 0, -131072, 0, 0, -65536, 0, 0, 0, 0, 0, 65536, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 393216, 0, 0, -393215, 0, 0, -327679, 0, 0, -262143, 0, 0, -196607, 0, 0, -131071, 0, 0, -65535, 0, 0, 1, 0, 0, 65537, 0, 0, 131073, 0, 0, 196609, 0, 0, 262145, 131072, 2, 327681, 0, 0, 393217, 0, 0, -393214, 65536, 2, -327678, 0, 0, -262142, 0, 0, -196606, 0, 0, -131070, 0, 3, -65534, 0, 0, 2, 0, 0, 65538, 0, 0, 131074, 0, 0, 196610, 0, 0, 262146, 0, 0, 327682, 0, 0, 393218, 0, 0, -393213, 0, 0, -327677, 0, 0, -262141, 65536, 3, -196605, 0, 0, -131069, 0, 0, -65533, 0, 0, 3, 0, 0, 65539, 0, 0, 131075, 0, 0, 196611, 0, 0, 262147, 0, 0, 327683, 0, 0, 393219, 0, 0, -393212, 0, 0, -327676, 0, 0, -262140, 0, 0, -196604, 0, 0, -131068, 0, 0, -65532, 0, 0, 4, 0, 0, 65540, 0, 0, 131076, 0, 0, 196612, 0, 0, 262148, 0, 0, 327684, 0, 0, 393220, 0, 0, -393211, 0, 0, -327675, 0, 0, -262139, 0, 0, -196603, 0, 0, -131067, 0, 0, -65531, 0, 0, 5, 0, 0, 65541, 0, 1, 131077, 0, 0, 196613, 0, 0, 262149, 0, 0, 327685, 0, 0, 393221, 0, 0, -393210, 0, 0, -327674, 0, 0, -262138, 0, 0, -196602, 0, 0, -131066, 0, 0, -65530, 0, 0, 6, 0, 0, 65542, 0, 0, 131078, 0, 0, 196614, 0, 0, 262150, 0, 1, 327686, 0, 0, 393222, 0, 0, -393209, 0, 0, -327673, 0, 0, -262137, 0, 1, -196601, 0, 0, -131065, 0, 0, -65529, 0, 0, 7, 0, 0, 65543, 0, 0, 131079, 0, 0, 196615, 0, 0, 262151, 0, 0, 327687, 0, 0, 393223, 131072, 3, -393208, 0, 0, -327672, 0, 0, -262136, 0, 0, -196600, 196608, 2, -131064, 0, 0, -65528, 0, 0, 8, 0, 0, 65544, 0, 0, 131080, 0, 0, 196616, 0, 0, 262152, 0, 0, 327688, 0, 0, 393224, 0, 0, -458765, 0, 0, -393229, 0, 0, -327693, 0, 0, -262157, 0, 0, -196621, 0, 0, -131085, 0, 0, -65549, 0, 0, -13, 0, 0, 65523, 0, 0, 131059, 0, 0, 196595, 0, 0, 262131, 0, 0, 327667, 0, 0, 393203, 0, 0, 458739, 0, 0, 524275, 0, 0, -458764, 0, 0, -393228, 0, 0, -327692, 0, 0, -262156, 0, 0, -196620, 0, 0, -131084, 0, 0, -65548, 131072, 3, -12, 0, 0, 65524, 0, 0, 131060, 0, 0, 196596, 131072, 2, 262132, 0, 0, 327668, 0, 0, 393204, 0, 0, 458740, 0, 0, 524276, 0, 0, -458763, 0, 0, -393227, 0, 0, -327691, 0, 0, -262155, 131072, 2, -196619, 0, 0, -131083, 0, 0, -65547, 0, 0, -11, 0, 0, 65525, 0, 0, 131061, 0, 0, 196597, 0, 0, 262133, 0, 0, 327669, 0, 0, 393205, 0, 0, 458741, 0, 0, 524277, 65536, 3, -458762, 0, 0, -393226, 0, 0, -327690, 0, 0, -262154, 0, 0, -196618, 0, 0, -131082, 0, 0, -65546, 0, 0, -10, 0, 0, 65526, 0, 0, 131062, 0, 0, 196598, 0, 0, 262134, 0, 0, 327670, 0, 0, 393206, 65536, 3, 458742, 0, 0, 524278, 0, 0, -458761, 0, 0, -393225, 0, 0, -327689, 0, 0, -262153, 0, 0, -196617, 131072, 3, -131081, 0, 0, -65545, 0, 0, -9, 0, 0, 65527, 0, 0, 131063, 0, 0, 196599, 0, 0, 262135, 0, 0, 327671, 0, 1, 393207, 0, 0, 458743, 0, 0, 524279, 0, 0, -458760, 0, 0, -393224, 0, 0, 524280, 0, 0, -458759, 0, 0, -393223, 0, 0, 524281, 0, 0, -458758, 0, 0, -393222, 0, 0, 524282, 0, 0, -458757, 0, 0, -393221, 0, 0, 524283, 0, 0, -458756, 0, 0, -393220, 65536, 3, 524284, 0, 0, -458755, 0, 0, -393219, 0, 0, 524285, 0, 0, -458754, 65536, 3, -393218, 0, 0, 524286, 0, 0, -458753, 0, 0, -393217, 0, 0, 524287, 0, 0, -524288, 0, 0, -458752, 0, 0, 458752, 0, 0, -524287, 0, 0, -458751, 0, 0, 458753, 0, 0, -524286, 0, 0, -458750, 0, 0, 458754, 0, 0, -524285, 0, 0, -458749, 0, 0, 458755, 0, 0, -524284, 0, 0, -458748, 0, 0, 458756, 0, 0, -524283, 0, 0, -458747, 0, 0, 458757, 0, 0, -524282, 0, 0, -458746, 131072, 2, 458758, 0, 0, -524281, 0, 0, -458745, 0, 0, 458759, 0, 0, -524280, 0, 0, -458744, 0, 0, 458760, 0, 0, -524279, 0, 0, -458743, 0, 0, -393207, 65536, 3, -327671, 0, 0, -262135, 0, 0, -196599, 0, 0, -131063, 0, 0, -65527, 0, 0, 9, 0, 0, 65545, 0, 0, 131081, 0, 0, 196617, 0, 0, 262153, 0, 0, 327689, 0, 0, 393225, 0, 0, 458761, 0, 0, -524278, 0, 0, -458742, 0, 0, -393206, 0, 0, -327670, 0, 0, -262134, 0, 0, -196598, 0, 0, -131062, 0, 0, -65526, 0, 0, 10, 196608, 2, 65546, 0, 0, 131082, 0, 0, 196618, 0, 0, 262154, 0, 0, 327690, 0, 0, 393226, 0, 0, 458762, 0, 0, -524277, 0, 0, -458741, 0, 0, -393205, 0, 0, -327669, 196608, 2, -262133, 0, 0, -196597, 65536, 2, -131061, 0, 0, -65525, 0, 0, 11, 0, 0, 65547, 0, 0, 131083, 0, 0, 196619, 0, 0, 262155, 65536, 2, 327691, 0, 0, 393227, 0, 0, 458763, 0, 0, -524276, 0, 0, -458740, 0, 0, -393204, 0, 0, -327668, 0, 0, -262132, 0, 0, -196596, 0, 0, -131060, 0, 0, -65524, 0, 0, 12, 0, 0, 65548, 196608, 2, 131084, 0, 0, 196620, 0, 0, 262156, 0, 0, 327692, 0, 0, 393228, 0, 0, 458764, 0, 0, 13, 131072, 2, -196594, 65536, 2)
+
+[node name="Camera2D" type="Camera2D" parent="Node/TileMap"]
+zoom = Vector2(3, 3)
+
+[node name="EnemySpawner" type="Node2D" parent="Node/TileMap"]
+script = ExtResource("4_qfsn2")
+
+[node name="Path2D" type="Path2D" parent="Node/TileMap/EnemySpawner"]
+position = Vector2(-1.46994, -3.46761)
+scale = Vector2(1.00462, 1.0162)
+curve = SubResource("Curve2D_nonq5")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Node/TileMap/EnemySpawner/Path2D"]
+position = Vector2(-221.507, -143.212)
+scale = Vector2(0.99434, 0.98211)
+
+[node name="Timer" type="Timer" parent="Node/TileMap/EnemySpawner"]
+wait_time = 0.5
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Node"]
+
+[node name="ColorRect" type="ColorRect" parent="Node/CanvasLayer"]
+material = ExtResource("5_yt88l")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-alignment = 1
+[node name="BackBufferCopy" type="BackBufferCopy" parent="Node/CanvasLayer"]
+rect = Rect2(0, 0, 9999, 9999)
 
-[node name="Seperator" type="Control" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
+[node name="ColorRect2" type="ColorRect" parent="Node/CanvasLayer"]
+material = ExtResource("5_tutnc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-theme_override_fonts/font = SubResource("SystemFont_4mj4c")
-theme_override_font_sizes/font_size = 24
-text = "Play"
+[node name="MainTitle" type="MarginContainer" parent="Node/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Seperator2" type="Control" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Settings" type="Button" parent="MarginContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Settings"
-
-[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Quit"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Node/CanvasLayer/MainTitle"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer2"]
+[node name="Control" type="Control" parent="Node/CanvasLayer/MainTitle/VBoxContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer2/Control"]
-layout_mode = 0
-offset_left = -144.0
-offset_top = -164.0
-offset_right = 139.0
-offset_bottom = -77.0
+[node name="Label" type="Label" parent="Node/CanvasLayer/MainTitle/VBoxContainer2/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -466.0
+offset_top = -273.0
+offset_right = 466.0
+offset_bottom = -106.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_x = 8
 theme_override_constants/shadow_offset_y = 5
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = SubResource("SystemFont_xijcm")
-theme_override_font_sizes/font_size = 86
-text = "GAME TITLE"
+text = "CRUSTACEAN CAT-SADER"
+label_settings = SubResource("LabelSettings_kyfp5")
+horizontal_alignment = 1
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[node name="Play" type="Button" parent="Node/CanvasLayer/MainTitle/VBoxContainer2/Control"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -73.5
+offset_right = 100.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_fnkja")
+theme_type_variation = &"FlatButton"
+theme_override_colors/font_color = Color(0.968627, 0.462745, 0.133333, 1)
+theme_override_colors/font_pressed_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_colors/font_hover_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_colors/font_focus_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_fonts/font = ExtResource("4_1lnei")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/focus = SubResource("StyleBoxFlat_vq6sr")
+text = "Play"
+flat = true
+
+[node name="Credits" type="Button" parent="Node/CanvasLayer/MainTitle/VBoxContainer2/Control"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = 6.5
+offset_right = 100.0
+offset_bottom = 93.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_fnkja")
+theme_type_variation = &"FlatButton"
+theme_override_colors/font_color = Color(0.968627, 0.462745, 0.133333, 1)
+theme_override_colors/font_pressed_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_colors/font_hover_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_colors/font_focus_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_fonts/font = ExtResource("4_1lnei")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/focus = SubResource("StyleBoxFlat_vq6sr")
+text = "Credits"
+flat = true
+
+[node name="Quit" type="Button" parent="Node/CanvasLayer/MainTitle/VBoxContainer2/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.5
+offset_top = 86.5
+offset_right = 46.5
+offset_bottom = 173.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_nlsjq")
+theme_override_colors/font_color = Color(0.968627, 0.462745, 0.133333, 1)
+theme_override_colors/font_pressed_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_colors/font_hover_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_colors/font_focus_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_fonts/font = ExtResource("4_1lnei")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/focus = SubResource("StyleBoxFlat_vixg1")
+text = "Quit"
+flat = true
+
+[node name="Credits" type="Control" parent="Node/CanvasLayer/MainTitle"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Node/CanvasLayer/MainTitle/Credits"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -157.0
+offset_top = -332.705
+offset_right = 157.0
+offset_bottom = -165.705
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_1lnei")
+theme_override_font_sizes/font_size = 86
+text = "Credits"
+label_settings = SubResource("LabelSettings_70qbd")
+
+[node name="Label" type="Label" parent="Node/CanvasLayer/MainTitle/Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 292.0
+offset_top = 109.0
+offset_right = -292.0
+offset_bottom = -89.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Made for the Pixel Game Jam 2024
+
+This is my 2nd offical game jam that I have participated in.
+
+The theme of this jam was \"Aqua\" and dispite having lots of 
+work during the Jam, I am happy with how the game turned out!!
+
+Programmer/Designer - Tacocat12
+Programmer - wholesomebilly
+(Pixel) Artist - Tacocat12
+
+Big thanks to Soda, Gentleman Ferret, and Sandvich for
+helping me come up with funky ideas for the game :)
+
+
+Assets Used
+Font - Silver by Poppy Works & Wolfgang Wozniak
+"
+label_settings = SubResource("LabelSettings_upb75")
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="Node/CanvasLayer/MainTitle/Credits"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = 211.0
+offset_right = 48.0
+offset_bottom = 298.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_nlsjq")
+theme_override_colors/font_color = Color(0.968627, 0.462745, 0.133333, 1)
+theme_override_colors/font_pressed_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_colors/font_hover_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_colors/font_focus_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_fonts/font = ExtResource("4_1lnei")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/focus = SubResource("StyleBoxFlat_vixg1")
+text = "Back"
+flat = true
+
+[connection signal="timeout" from="Node/TileMap/EnemySpawner/Timer" to="Node/TileMap/EnemySpawner" method="_on_timer_timeout"]
+[connection signal="pressed" from="Node/CanvasLayer/MainTitle/VBoxContainer2/Control/Play" to="." method="_on_play_pressed"]
+[connection signal="button_up" from="Node/CanvasLayer/MainTitle/VBoxContainer2/Control/Credits" to="." method="_on_credits_button_up"]
+[connection signal="pressed" from="Node/CanvasLayer/MainTitle/VBoxContainer2/Control/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Node/CanvasLayer/MainTitle/Credits/Back" to="." method="_on_back_pressed"]

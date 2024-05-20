@@ -1,0 +1,65 @@
+[gd_scene load_steps=13 format=3 uid="uid://68yddsjovfgm"]
+
+[ext_resource type="Script" path="res://Scripts/crab_entity_menu.gd" id="1_3eg5c"]
+[ext_resource type="Texture2D" uid="uid://ce14ui0ahlrs0" path="res://Sprites/crab.png" id="2_4t26n"]
+[ext_resource type="PackedScene" uid="uid://b2kigrgutcp6i" path="res://Nodes/Enemies/EnemyComponents/health_component.tscn" id="3_yhvsj"]
+[ext_resource type="PackedScene" uid="uid://7i86efmxpt78" path="res://Nodes/Enemies/EnemyComponents/move_component.tscn" id="4_btunp"]
+[ext_resource type="PackedScene" uid="uid://boqx57s6rsfui" path="res://Nodes/Enemies/EnemyComponents/enemy_animator_component.tscn" id="5_ej1af"]
+[ext_resource type="PackedScene" uid="uid://cmmyjxawqcuh2" path="res://Nodes/Enemies/EnemyComponents/pathfind_component.tscn" id="6_2qqdt"]
+[ext_resource type="PackedScene" uid="uid://cbx2t1f5ncx4g" path="res://Nodes/Enemies/EnemyComponents/hit_component.tscn" id="7_3gjss"]
+[ext_resource type="PackedScene" uid="uid://deskugvvcakbs" path="res://Particles/explosion.tscn" id="8_o4xfy"]
+[ext_resource type="PackedScene" uid="uid://7tqoi5x1ai2l" path="res://Nodes/exp.tscn" id="9_xtlvj"]
+[ext_resource type="PackedScene" uid="uid://c6itnn5gq2uvb" path="res://Nodes/Enemies/EnemyComponents/contact_damange_node.tscn" id="10_1gby2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xqth7"]
+size = Vector2(20, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hjjol"]
+size = Vector2(20, 15)
+
+[node name="CrabEntity" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "animatorComponent") groups=["enemy"]]
+collision_mask = 0
+script = ExtResource("1_3eg5c")
+velocityComponent = NodePath("MoveComponent")
+pathfindComponent = NodePath("PathfindComponent")
+animatorComponent = NodePath("EnemyAnimatorComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_4t26n")
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_yhvsj")]
+
+[node name="MoveComponent" parent="." instance=ExtResource("4_btunp")]
+
+[node name="EnemyAnimatorComponent" parent="." instance=ExtResource("5_ej1af")]
+
+[node name="PathfindComponent" parent="." node_paths=PackedStringArray("velocityComponent") instance=ExtResource("6_2qqdt")]
+velocityComponent = NodePath("../MoveComponent")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_xqth7")
+
+[node name="HitComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_3gjss")]
+death_animation = ExtResource("8_o4xfy")
+exp = ExtResource("9_xtlvj")
+exp_amount = 1.0
+sprite = NodePath("../Sprite2D")
+
+[node name="ContactDamangeNode" parent="." node_paths=PackedStringArray("area2D") instance=ExtResource("10_1gby2")]
+contact_damage = 5.0
+area2D = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="ContactDamangeNode"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactDamangeNode/Area2D"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_hjjol")
+
+[connection signal="entityDied" from="HealthComponent" to="HitComponent" method="_on_health_component_entity_died"]
+[connection signal="healthChanged" from="HealthComponent" to="HitComponent" method="_on_health_component_health_changed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

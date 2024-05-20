@@ -1,0 +1,78 @@
+[gd_scene load_steps=12 format=3 uid="uid://gnt2j4gcb3kc"]
+
+[ext_resource type="Script" path="res://Scripts/Missile.gd" id="1_td63g"]
+[ext_resource type="Texture2D" uid="uid://bda2lel7crm8i" path="res://Sprites/smoke.png" id="2_v06k1"]
+[ext_resource type="Texture2D" uid="uid://dsbxvdodriluy" path="res://Sprites/missile.png" id="3_icpgd"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c4v5y"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_b0b6u"]
+offsets = PackedFloat32Array(0, 0.192982, 0.219298, 0.497076, 0.535088, 0.730994, 0.760234, 1)
+colors = PackedColorArray(0.968627, 0.462745, 0.133333, 1, 0.968627, 0.462745, 0.133333, 1, 0.996078, 0.682353, 0.203922, 1, 0.996078, 0.682353, 0.203922, 1, 0.545098, 0.607843, 0.705882, 1, 0.545098, 0.607843, 0.705882, 1, 0.0941176, 0.0784314, 0.145098, 1, 0.0941176, 0.0784314, 0.145098, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a0gnp"]
+gradient = SubResource("Gradient_b0b6u")
+
+[sub_resource type="Curve" id="Curve_guxkb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.659459, 0.51046), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_s4o0a"]
+curve = SubResource("Curve_guxkb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jnubn"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 2.0
+gravity = Vector3(-50, 0, 0)
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_s4o0a")
+color_ramp = SubResource("GradientTexture1D_a0gnp")
+anim_speed_min = 1.0
+anim_speed_max = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yuaco"]
+radius = 59.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ypl6l"]
+radius = 3.0
+height = 16.0
+
+[node name="Missile" type="Node2D"]
+script = ExtResource("1_td63g")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_c4v5y")
+position = Vector2(-7, 0)
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_jnubn")
+texture = ExtResource("2_v06k1")
+lifetime = 1.1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_icpgd")
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+
+[node name="DetectionArea" type="CollisionShape2D" parent="Sprite2D/Area2D"]
+shape = SubResource("CircleShape2D_yuaco")
+
+[node name="Area2D2" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D2"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ypl6l")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="body_entered" from="Sprite2D/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Sprite2D/Area2D2" to="." method="_on_collision_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

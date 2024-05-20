@@ -1,7 +1,9 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://vt4di3y73r56"]
 
-[ext_resource type="Shader" path="res://Shaders/pixel_shader.gdshader" id="1_p54eo"]
+[ext_resource type="Shader" path="res://Shaders/gameover.gdshader" id="1_or86j"]
 
 [resource]
-shader = ExtResource("1_p54eo")
+shader = ExtResource("1_or86j")
 shader_parameter/pixel_size = 2.0
+shader_parameter/red_intensity = 0.5
+shader_parameter/noise_intensity = 0.1

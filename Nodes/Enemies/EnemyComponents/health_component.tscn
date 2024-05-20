@@ -5,3 +5,4 @@
 [node name="HealthComponent" type="Node2D"]
 position = Vector2(130, 37)
 script = ExtResource("1_yxrr1")
+health = 20.0

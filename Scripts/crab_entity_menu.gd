@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var velocityComponent : Node2D;
 @export var pathfindComponent : Node2D;
 @export var animatorComponent : Node2D;
-@onready var player = get_node('/root/Scene/Player');
+var _targetPos = Vector2.ZERO
 
 var current_tick = 3
 var move_num_of_ticks = 3
@@ -15,10 +15,12 @@ enum State {
 var currentState = State.Moving
 
 func _process(delta):
+	if global_position.y < -160:
+		queue_free()
+	
+	pathfindComponent.targetDirection = _targetPos
 	if currentState == State.Moving:
 		var direction = pathfindComponent.direction
-		if is_instance_valid(player):
-			pathfindComponent.setTargetLocation(player.global_position)
 		velocityComponent.AccelerateInDirection(direction);
 	elif currentState == State.notMoving:
 		velocityComponent.Decelerate();

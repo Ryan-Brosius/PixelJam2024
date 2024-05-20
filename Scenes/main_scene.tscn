@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cq0821wu2tf2b"]
+[gd_scene load_steps=29 format=3 uid="uid://cq0821wu2tf2b"]
 
 [ext_resource type="PackedScene" uid="uid://bito7kn6cniod" path="res://Nodes/player.tscn" id="1_ccc8c"]
 [ext_resource type="TileSet" uid="uid://dy5wdm1x1ir8q" path="res://Sprites/map.tres" id="1_qn4te"]
@@ -6,13 +6,71 @@
 [ext_resource type="Script" path="res://Scripts/EnemySpawner.gd" id="4_m7rjh"]
 [ext_resource type="Texture2D" uid="uid://bq41fwu0nfljf" path="res://Sprites/white_texture.png" id="7_2cxwd"]
 [ext_resource type="Texture2D" uid="uid://jxpu5lefg70a" path="res://Sprites/exp_bar.png" id="8_h42aj"]
+[ext_resource type="Script" path="res://Scripts/HPBar.gd" id="8_p0d5a"]
 [ext_resource type="Script" path="res://Scripts/ExpBar.gd" id="9_8r5pl"]
+[ext_resource type="Texture2D" uid="uid://cld1jtblyw1wn" path="res://Sprites/test.png" id="9_jun8o"]
+[ext_resource type="Script" path="res://Scripts/Player Scripts/ItemPicker.gd" id="10_1wbfy"]
+[ext_resource type="Texture2D" uid="uid://d1mhegldh3kyo" path="res://Sprites/itemContainer.png" id="10_naafr"]
+[ext_resource type="Script" path="res://Scenes/GameOverScreen.gd" id="13_6an2a"]
+[ext_resource type="FontFile" uid="uid://5dtgum7nufww" path="res://Silver.ttf" id="13_kkoo4"]
+[ext_resource type="Material" uid="uid://ce0rcubfty04p" path="res://Shaders/gameover.tres" id="14_xrvjk"]
 
 [sub_resource type="Curve2D" id="Curve2D_gofj2"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -330.005, -217.016, 0, 0, 0, 0, 315.014, -218.984, 0, 0, 0, 0, 318, 211, 0, 0, 0, 0, -331, 214, 0, 0, 0, 0, -331.995, -215.048)
 }
 point_count = 5
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iw536"]
+texture = ExtResource("10_naafr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h5uvi"]
+texture = ExtResource("10_naafr")
+modulate_color = Color(0.7, 0.7, 0.7, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5myci"]
+texture = ExtResource("10_naafr")
+modulate_color = Color(0.7, 0.7, 0.7, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vhuya"]
+texture = ExtResource("10_naafr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ilbbo"]
+texture = ExtResource("10_naafr")
+modulate_color = Color(0.6, 0.6, 0.6, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_orxwx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bmdla"]
+font = ExtResource("13_kkoo4")
+font_size = 30
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fxqot"]
+font = ExtResource("13_kkoo4")
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_pnr8p"]
+font = ExtResource("13_kkoo4")
+font_size = 200
+font_color = Color(0.996078, 0.682353, 0.203922, 1)
+outline_size = 1
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ry7vt"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0uu0v"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lw10o"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u0vr4"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="Scene" type="Node2D"]
 
@@ -40,6 +98,7 @@ wait_time = 0.5
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="ExperienceBar" type="Control" parent="CanvasLayer"]
 custom_minimum_size = Vector2(0, 30)
@@ -64,4 +123,277 @@ tint_under = Color(0.12549, 0.12549, 0.12549, 0.701961)
 tint_progress = Color(0.345098, 0.403922, 0.627451, 0.862745)
 script = ExtResource("9_8r5pl")
 
+[node name="HPBar" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 20.0
+script = ExtResource("8_p0d5a")
+
+[node name="HPBar" type="TextureProgressBar" parent="CanvasLayer/HPBar"]
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 34.0
+offset_right = 325.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("7_2cxwd")
+texture_over = ExtResource("7_2cxwd")
+texture_progress = ExtResource("7_2cxwd")
+tint_under = Color(0.12549, 0.12549, 0.12549, 0.701961)
+tint_over = Color(1, 1, 1, 0)
+tint_progress = Color(0.345098, 1, 0.627451, 0.913725)
+
+[node name="ItemPicker" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_1wbfy")
+
+[node name="Button" type="Button" parent="CanvasLayer/ItemPicker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -105.5
+offset_top = -73.0
+offset_right = 105.5
+offset_bottom = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_iw536")
+theme_override_styles/hover = SubResource("StyleBoxTexture_h5uvi")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5myci")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_vhuya")
+theme_override_styles/focus = SubResource("StyleBoxTexture_ilbbo")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ItemPicker/Button"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 32.0
+offset_right = 136.0
+offset_bottom = 96.0
+texture = ExtResource("9_jun8o")
+
+[node name="Label" type="Label" parent="CanvasLayer/ItemPicker/Button"]
+material = SubResource("CanvasItemMaterial_orxwx")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 35.0
+offset_right = 20.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "lol"
+label_settings = SubResource("LabelSettings_bmdla")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button2" type="Button" parent="CanvasLayer/ItemPicker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 194.5
+offset_top = -73.0
+offset_right = 405.5
+offset_bottom = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_iw536")
+theme_override_styles/hover = SubResource("StyleBoxTexture_h5uvi")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5myci")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_vhuya")
+theme_override_styles/focus = SubResource("StyleBoxTexture_ilbbo")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ItemPicker/Button2"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 32.0
+offset_right = 136.0
+offset_bottom = 96.0
+
+[node name="Label" type="Label" parent="CanvasLayer/ItemPicker/Button2"]
+material = SubResource("CanvasItemMaterial_orxwx")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 35.0
+offset_right = 20.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "lol"
+label_settings = SubResource("LabelSettings_bmdla")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button3" type="Button" parent="CanvasLayer/ItemPicker"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -405.5
+offset_top = -73.0
+offset_right = -194.5
+offset_bottom = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_iw536")
+theme_override_styles/hover = SubResource("StyleBoxTexture_h5uvi")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5myci")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_vhuya")
+theme_override_styles/focus = SubResource("StyleBoxTexture_ilbbo")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ItemPicker/Button3"]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 32.0
+offset_right = 136.0
+offset_bottom = 96.0
+
+[node name="Label" type="Label" parent="CanvasLayer/ItemPicker/Button3"]
+material = SubResource("CanvasItemMaterial_orxwx")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 35.0
+offset_right = 20.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "lol"
+label_settings = SubResource("LabelSettings_bmdla")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/ItemPicker"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.5
+offset_top = -170.0
+offset_right = 80.5
+offset_bottom = -136.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Level Up!!!"
+label_settings = SubResource("LabelSettings_fxqot")
+horizontal_alignment = 1
+
+[node name="GameOverScreen" type="Control" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_6an2a")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GameOverScreen"]
+material = ExtResource("14_xrvjk")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="CanvasLayer/GameOverScreen"]
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.5
+offset_top = -211.0
+offset_right = 320.5
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.996078, 0.682353, 0.203922, 1)
+text = "Game Over!!"
+label_settings = SubResource("LabelSettings_pnr8p")
+
+[node name="Button" type="Button" parent="CanvasLayer/GameOverScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -97.5
+offset_top = 6.5
+offset_right = 97.5
+offset_bottom = 93.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"FlatButton"
+theme_override_colors/font_color = Color(0.996078, 0.682353, 0.2, 1)
+theme_override_colors/font_pressed_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_colors/font_hover_color = Color(0.0941176, 0.0784314, 0.145098, 1)
+theme_override_colors/icon_normal_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_hover_pressed_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 0)
+theme_override_colors/icon_disabled_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("13_kkoo4")
+theme_override_font_sizes/font_size = 70
+theme_override_styles/normal = SubResource("StyleBoxFlat_ry7vt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_0uu0v")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lw10o")
+theme_override_styles/focus = SubResource("StyleBoxFlat_u0vr4")
+text = "Main Manu"
+flat = true
+
 [connection signal="timeout" from="EnemySpawner/Timer" to="EnemySpawner" method="_on_timer_timeout"]
+[connection signal="button_up" from="CanvasLayer/ItemPicker/Button" to="CanvasLayer/ItemPicker" method="_on_button_button_up2"]
+[connection signal="button_up" from="CanvasLayer/ItemPicker/Button2" to="CanvasLayer/ItemPicker" method="_on_button_2_button_up"]
+[connection signal="button_up" from="CanvasLayer/ItemPicker/Button3" to="CanvasLayer/ItemPicker" method="_on_button_3_button_up1"]
+[connection signal="button_up" from="CanvasLayer/GameOverScreen/Button" to="CanvasLayer/GameOverScreen" method="_on_button_button_up"]

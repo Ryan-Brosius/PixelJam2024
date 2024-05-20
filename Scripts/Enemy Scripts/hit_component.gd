@@ -24,5 +24,8 @@ func _on_health_component_entity_died():
 func _on_health_component_health_changed():
 	if sprite:
 		sprite.modulate = Color(1, 0, 0);
-		await get_tree().create_timer(.1).timeout
+		if get_tree() != null:
+			await get_tree().create_timer(.1).timeout
+		else:
+			return
 		sprite.modulate = Color(1, 1, 1);

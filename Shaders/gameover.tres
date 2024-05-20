@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ce0rcubfty04p"]
+
+[ext_resource type="Shader" path="res://Shaders/gameover.gdshader" id="1_qbvtf"]
+
+[resource]
+shader = ExtResource("1_qbvtf")
+shader_parameter/pixel_size = 5.0
+shader_parameter/red_intensity = 0.1
+shader_parameter/noise_intensity = 0.05

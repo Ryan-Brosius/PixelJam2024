@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b0gl5rfa5ieuf"]
+[gd_scene load_steps=13 format=3 uid="uid://b0gl5rfa5ieuf"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy Scripts/CrabEntity.gd" id="1_root4"]
 [ext_resource type="Texture2D" uid="uid://ce14ui0ahlrs0" path="res://Sprites/crab.png" id="2_mhpda"]
@@ -6,15 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://7i86efmxpt78" path="res://Nodes/Enemies/EnemyComponents/move_component.tscn" id="4_oxu7w"]
 [ext_resource type="PackedScene" uid="uid://boqx57s6rsfui" path="res://Nodes/Enemies/EnemyComponents/enemy_animator_component.tscn" id="6_tlidm"]
 [ext_resource type="PackedScene" uid="uid://cmmyjxawqcuh2" path="res://Nodes/Enemies/EnemyComponents/pathfind_component.tscn" id="6_uyk8o"]
-[ext_resource type="PackedScene" uid="uid://cwwg2nlqi4vv" path="res://Nodes/Enemies/EnemyComponents/hit_component.tscn" id="7_8vocl"]
-[ext_resource type="Script" path="res://Scripts/Enemy Scripts/hit_component.gd" id="8_eommh"]
+[ext_resource type="PackedScene" uid="uid://cbx2t1f5ncx4g" path="res://Nodes/Enemies/EnemyComponents/hit_component.tscn" id="7_8vocl"]
 [ext_resource type="PackedScene" uid="uid://deskugvvcakbs" path="res://Particles/explosion.tscn" id="9_umfoo"]
+[ext_resource type="PackedScene" uid="uid://c6itnn5gq2uvb" path="res://Nodes/Enemies/EnemyComponents/contact_damange_node.tscn" id="10_0tf17"]
 [ext_resource type="PackedScene" uid="uid://7tqoi5x1ai2l" path="res://Nodes/exp.tscn" id="10_g6t5h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xqth7"]
 size = Vector2(20, 15)
 
-[node name="CrabEntity" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "animatorComponent")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hjjol"]
+size = Vector2(20, 15)
+
+[node name="CrabEntity" type="CharacterBody2D" node_paths=PackedStringArray("velocityComponent", "pathfindComponent", "animatorComponent") groups=["enemy"]]
 collision_mask = 0
 script = ExtResource("1_root4")
 velocityComponent = NodePath("MoveComponent")
@@ -42,11 +45,20 @@ position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_xqth7")
 
 [node name="HitComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_8vocl")]
-script = ExtResource("8_eommh")
 death_animation = ExtResource("9_umfoo")
 exp = ExtResource("10_g6t5h")
-exp_amount = 20.0
+exp_amount = 1.0
 sprite = NodePath("../Sprite2D")
+
+[node name="ContactDamangeNode" parent="." node_paths=PackedStringArray("area2D") instance=ExtResource("10_0tf17")]
+contact_damage = 5.0
+area2D = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="ContactDamangeNode"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ContactDamangeNode/Area2D"]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_hjjol")
 
 [connection signal="entityDied" from="HealthComponent" to="HitComponent" method="_on_health_component_entity_died"]
 [connection signal="healthChanged" from="HealthComponent" to="HitComponent" method="_on_health_component_health_changed"]

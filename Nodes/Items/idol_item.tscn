@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd6cu5a6v6tnq"]
+
+[ext_resource type="Script" path="res://Nodes/Items/idol_item.gd" id="1_7n2q7"]
+
+[node name="IdolItem" type="Node2D"]
+script = ExtResource("1_7n2q7")
